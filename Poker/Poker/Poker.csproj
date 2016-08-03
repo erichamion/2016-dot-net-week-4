@@ -44,11 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\Card.cs" />
+    <Compile Include="Cards\CardEqualityComparer.cs" />
     <Compile Include="Cards\CardRanks.cs" />
+    <Compile Include="Cards\Deck.cs" />
     <Compile Include="Cards\Hand.cs" />
     <Compile Include="Cards\HandRanks.cs" />
     <Compile Include="Cards\PokerHand.cs" />
     <Compile Include="Cards\Suits.cs" />
+    <Compile Include="Game\Pot.cs" />
     <Compile Include="Player\Wallet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
