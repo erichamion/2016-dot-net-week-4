@@ -55,6 +55,7 @@
     <Compile Include="Cards\Deck_Tests.cs" />
     <Compile Include="Cards\PokerHand_Tests.cs" />
     <Compile Include="Game\Pot_Tests.cs" />
+    <Compile Include="Player\Player_Tests.cs" />
     <Compile Include="Player\Wallet_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
