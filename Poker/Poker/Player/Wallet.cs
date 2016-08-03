@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Poker.Player
 {
-    class Wallet
+    public class Wallet
     {
         public double Balance { get; private set; }
 
