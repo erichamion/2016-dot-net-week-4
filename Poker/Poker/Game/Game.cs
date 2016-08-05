@@ -38,7 +38,7 @@ namespace Poker.Game
                     return "compare hands";
 
                 case GameState.POST_SCORE:
-                    return "start next round or game over";
+                    return "start next round";
 
                 case GameState.OVER:
                     return "exit or start a new game";
@@ -85,31 +85,31 @@ namespace Poker.Game
         /// <summary>
         /// Performs the next portion of a round.
         /// </summary>
-        /// <param name="playerStates">out. Contains the player states after the activity is performed.</param>
+        /// <param name="newPlayerStates">out. Contains the player states after the activity is performed.</param>
         /// <returns>The new state</returns>
-        public GameState AdvanceRound(out List<PlayerState> playerStates)
+        public GameState AdvanceRound(out String actionTaken, out List<PlayerState> newPlayerStates)
         {
             GameState newState;
             switch (State)
             {
                 case GameState.NOT_STARTED:
-                    newState = StartRound(out playerStates);
+                    newState = StartRound(out actionTaken, out newPlayerStates);
                     break;
 
                 case GameState.PRE_ANTE:
-                    newState = DoAnte(out playerStates);
+                    newState = DoAnte(out actionTaken, out newPlayerStates);
                     break;
 
                 case GameState.POST_ANTE:
-                    newState = Deal(out playerStates);
+                    newState = Deal(out actionTaken, out newPlayerStates);
                     break;
 
                 case GameState.PRE_SCORE:
-                    newState = ScorePlayers(out playerStates);
+                    newState = ScorePlayers(out actionTaken, out newPlayerStates);
                     break;
 
                 case GameState.POST_SCORE:
-                    newState = StartNewRoundOrGameOver(out playerStates);
+                    newState = StartNewRoundOrGameOver(out actionTaken, out newPlayerStates);
                     break;
 
                 case GameState.OVER:
@@ -120,17 +120,18 @@ namespace Poker.Game
             return newState;
         }
 
-        private GameState StartRound(out List<PlayerState> playerStates)
+        private GameState StartRound(out String actionString, out List<PlayerState> playerStates)
         {
             _deck.Reshuffle();
             _dealer = FindDealer(_dealer);
             Winner = null;
 
             playerStates = GetPlayerStatesNoHands();
+            actionString = "Starting round";
             return GameState.PRE_ANTE;
         }
 
-        private GameState DoAnte(out List<PlayerState> playerStates)
+        private GameState DoAnte(out String actionString, out List<PlayerState> playerStates)
         {
             foreach (Player.Player player in _players.Where(x => x.IsActive))
             {
@@ -146,10 +147,11 @@ namespace Poker.Game
             // player.TryBet deactivates any players who can't meet the ante.
 
             playerStates = GetPlayerStatesNoHands();
+            actionString = String.Format("Players submitted ante of {0:C} each, resulting in a {1:C} pot", _ante, _pot.Size);
             return GameState.POST_ANTE;
         }
 
-        private GameState Deal(out List<PlayerState> playerStates)
+        private GameState Deal(out String actionString, out List<PlayerState> playerStates)
         {
             foreach (Player.Player player in _players.Where(x => x.IsActive))
             {
@@ -163,32 +165,45 @@ namespace Poker.Game
             }
 
             playerStates = GetPlayerStates(true, false);
+            actionString = String.Format("Dealt hand to each player (pot holds {0:C})", _pot.Size);
             return GameState.PRE_SCORE;
         }
 
-        private GameState ScorePlayers(out List<PlayerState> playerStates)
+        private GameState ScorePlayers(out String actionString, out List<PlayerState> playerStates)
         {
             Player.Player winningPlayer = _players.Where(x => x.IsActive).OrderBy(x => x.Hand).Last();
             Winner = _players.IndexOf(winningPlayer);
             winningPlayer.CollectWinnings(_pot.PayOut());
 
             playerStates = GetPlayerStates(true, true);
+            actionString = String.Format("{0} wins the round", winningPlayer.Name);
             return GameState.POST_SCORE;
         }
 
-        private GameState StartNewRoundOrGameOver(out List<PlayerState> playerStates)
+        private GameState StartNewRoundOrGameOver(out String actionString, out List<PlayerState> playerStates)
         {
+            var activePlayers = _players.Where(x => x.IsActive);
+
             // How many active players remain?
-            if (_players.Count(x => x.IsActive) > 1)
+            if (activePlayers.Count() > 1)
             {
                 // Multiple players remaining, continue to the next round
-                return StartRound(out playerStates);
+                return StartRound(out actionString, out playerStates);
             }
+            else if (activePlayers.Count() == 1)
+            {
+                // Exactly one remaining player. That player is the winner.
+                String winnerName = activePlayers.Single().Name;
+                actionString = String.Format("Game over. {0} wins", winnerName);
+                playerStates = GetPlayerStatesNoHands();
+                return GameState.OVER;
+            }
+            else
+            {
+                // Zero remaining players should not be possible
+                throw new InvalidOperationException("No active players remaining! Where did the money go?");
 
-
-            // No more than one remaining player, game over
-            playerStates = GetPlayerStatesNoHands();
-            return GameState.OVER;
+            }           
         }
 
         

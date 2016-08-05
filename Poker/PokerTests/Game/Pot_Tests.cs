@@ -22,7 +22,7 @@ namespace Poker.Game.Tests
             pot = new Pot();
 
             // Assert
-            Assert.AreEqual(expectedAward, pot.Award);
+            Assert.AreEqual(expectedAward, pot.Size);
         }
 
         [TestMethod()]
@@ -39,7 +39,7 @@ namespace Poker.Game.Tests
             pot.Add(secondAmount);
 
             // Assert
-            Assert.AreEqual(expectedAward, pot.Award);
+            Assert.AreEqual(expectedAward, pot.Size);
         }
 
         [TestMethod()]
@@ -83,7 +83,7 @@ namespace Poker.Game.Tests
             // Act
             pot.Add(addAmount);
             pot.PayOut();
-            newAward = pot.Award;
+            newAward = pot.Size;
 
             // Assert
             Assert.AreEqual(0, newAward);

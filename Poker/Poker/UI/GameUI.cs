@@ -27,13 +27,13 @@ namespace Poker.UI
 
             Game.Game game = GetGameParametersAndCreateGame();
 
-            Game.GameState gameState;
-            List<Game.PlayerState> playerStates;
-
+            Game.GameState gameState;            
             do
             {
-                gameState = game.AdvanceRound(out playerStates);
-                PrintGameState(game, gameState, playerStates);
+                List<Game.PlayerState> playerStates;
+                String actionTaken;
+                gameState = game.AdvanceRound(out actionTaken, out playerStates);
+                PrintGameState(game, gameState, actionTaken, playerStates);
                 
             } while (gameState != Game.GameState.OVER);
 
@@ -148,9 +148,28 @@ namespace Poker.UI
             return result;
         }
 
-        private void PrintGameState(Game.Game game, Game.GameState gameState, List<Game.PlayerState> playerStates)
+        private void PrintGameState(Game.Game game, Game.GameState gameState, String actionTaken, List<Game.PlayerState> playerStates)
         {
+            
+            // Show the action that was just taken
+            Console.WriteLine("{0}:\n", actionTaken);
+
+            // Show the player states
+            ShowPlayerStates(game, playerStates);
+
+            // Show the next action
+            Console.WriteLine();
+            Console.WriteLine("Press a key to {0}...", Game.Game.GetNextActionString(gameState));
+            Console.ReadKey(true);
+            Console.Clear();
+        }
+
+        private static void ShowPlayerStates(Game.Game game, List<Game.PlayerState> playerStates)
+        {
+            // Save the current console text color in order to restore it later
             ConsoleColor oldColor = Console.ForegroundColor;
+
+            // Show the player states
             for (int i = 0; i < playerStates.Count; i++)
             {
                 Game.PlayerState playerState = playerStates[i];
@@ -168,12 +187,9 @@ namespace Poker.UI
 
                 Console.WriteLine("{0}. {1} {2} {3}", i + 1, winnerIndicator, dealerIndicator, playerState.Description);
             }
-            Console.ForegroundColor = oldColor;
 
-            Console.WriteLine();
-            Console.WriteLine("Press a key to {0}...", Game.Game.GetNextActionString(gameState));
-            Console.ReadKey(true);
-            Console.Clear();
+            // Restore original console text color
+            Console.ForegroundColor = oldColor;
         }
     }
 }

@@ -8,11 +8,11 @@ namespace Poker.Game
 {
     public class Pot
     {
-        public int Award { get; private set; }
+        public int Size { get; private set; }
 
         public Pot()
         {
-            Award = 0;
+            Size = 0;
         }
 
         public void Add(int amount)
@@ -21,19 +21,19 @@ namespace Poker.Game
             {
                 throw new ArgumentOutOfRangeException("Cannot add a negative amount to the pot");
             }
-            Award += amount;
+            Size += amount;
         }
 
         public int PayOut()
         {
-            int result = Award;
-            Award = 0;
+            int result = Size;
+            Size = 0;
             return result;
         }
 
         public override string ToString()
         {
-            return String.Format("{0:C}", Award);
+            return String.Format("{0:C}", Size);
         }
     }
 }
