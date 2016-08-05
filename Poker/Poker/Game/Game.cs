@@ -109,7 +109,7 @@ namespace Poker.Game
                     break;
 
                 case GameState.POST_SCORE:
-                    newState = StartNewRoundOrGameOver(out actionTaken, out newPlayerStates);
+                    newState = StartRound(out actionTaken, out newPlayerStates);
                     break;
 
                 case GameState.OVER:
@@ -145,10 +145,37 @@ namespace Poker.Game
             }
 
             // player.TryBet deactivates any players who can't meet the ante.
+            // How many active players remain?
+            var activePlayers = _players.Where(x => x.IsActive);
+            if (activePlayers.Count() > 1)
+            {
+                // Multiple players remaining, continue normally
+                return SucceedAnte(out actionString, out playerStates);
+            }
+            else if (activePlayers.Count() == 1)
+            {
+                // Exactly one remaining player. That player is the winner.
+                return DoGameOver(activePlayers.Single().Name, out actionString, out playerStates);
+            }
+            else
+            {
+                // Zero remaining players should not be possible
+                throw new InvalidOperationException("No active players remaining! Where did the money go?");
+            }            
+        }
 
-            playerStates = GetPlayerStatesNoHands();
+        private GameState SucceedAnte(out String actionString, out List<PlayerState> playerStates)
+        {
             actionString = String.Format("Players submitted ante of {0:C} each, resulting in a {1:C} pot", _ante, _pot.Size);
+            playerStates = GetPlayerStatesNoHands();
             return GameState.POST_ANTE;
+        }
+
+        private GameState DoGameOver(String winnerName, out string actionString, out List<PlayerState> playerStates)
+        {
+            actionString = String.Format("Game over. {0} wins", winnerName);
+            playerStates = GetPlayerStatesNoHands();
+            return GameState.OVER;
         }
 
         private GameState Deal(out String actionString, out List<PlayerState> playerStates)
@@ -180,33 +207,6 @@ namespace Poker.Game
             return GameState.POST_SCORE;
         }
 
-        private GameState StartNewRoundOrGameOver(out String actionString, out List<PlayerState> playerStates)
-        {
-            var activePlayers = _players.Where(x => x.IsActive);
-
-            // How many active players remain?
-            if (activePlayers.Count() > 1)
-            {
-                // Multiple players remaining, continue to the next round
-                return StartRound(out actionString, out playerStates);
-            }
-            else if (activePlayers.Count() == 1)
-            {
-                // Exactly one remaining player. That player is the winner.
-                String winnerName = activePlayers.Single().Name;
-                actionString = String.Format("Game over. {0} wins", winnerName);
-                playerStates = GetPlayerStatesNoHands();
-                return GameState.OVER;
-            }
-            else
-            {
-                // Zero remaining players should not be possible
-                throw new InvalidOperationException("No active players remaining! Where did the money go?");
-
-            }           
-        }
-
-        
         private List<PlayerState> GetPlayerStatesNoHands()
         {
             return GetPlayerStates(false, false, false);
