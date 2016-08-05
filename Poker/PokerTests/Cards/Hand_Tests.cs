@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace Poker.Cards.Tests
 {
     [TestClass()]
-    public class PokerHand_Tests
+    public class Hand_Tests
     {
 
 
         [TestMethod()]
-        public void PokerHand_Ctor_WithValidArguments_ContainsCorrectCardsInAscendingOrder()
+        public void Hand_Ctor_WithValidArguments_ContainsCorrectCardsInAscendingOrder()
         {
             // Arrange variables
             Card[] cards =
@@ -25,11 +25,11 @@ namespace Poker.Cards.Tests
                 new Card(CardRanks._6, Suits.S),
                 new Card(CardRanks._2, Suits.C)
             };
-            PokerHand hand;
+            Hand hand;
             bool threwOutOfRange = false;
 
             // Act
-            hand = new PokerHand(cards);
+            hand = new Hand(cards);
             try
             {
                 Card c = hand[5];
@@ -55,7 +55,7 @@ namespace Poker.Cards.Tests
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
-        public void PokerHand_Ctor_WithTooFewArguments_ThrowsArgumentException()
+        public void Hand_Ctor_WithTooFewArguments_ThrowsArgumentException()
         {
             // Arrange variables
             Card[] cards =
@@ -65,17 +65,17 @@ namespace Poker.Cards.Tests
                 new Card(CardRanks.A, Suits.H),
                 new Card(CardRanks._6, Suits.S)
             };
-            PokerHand hand;
+            Hand hand;
 
             // Act
-            hand = new PokerHand(cards);
+            hand = new Hand(cards);
 
             // Assert handled by ExpectedException
         }
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
-        public void PokerHand_Ctor_WithTooManyArguments_ThrowsArgumentException()
+        public void Hand_Ctor_WithTooManyArguments_ThrowsArgumentException()
         {
             // Arrange variables
             Card[] cards =
@@ -87,10 +87,10 @@ namespace Poker.Cards.Tests
                 new Card(CardRanks._2, Suits.C),
                 new Card(CardRanks.A, Suits.C)
             };
-            PokerHand hand;
+            Hand hand;
 
             // Act
-            hand = new PokerHand(cards);
+            hand = new Hand(cards);
 
             // Assert handled by ExpectedException
         }
@@ -107,11 +107,11 @@ namespace Poker.Cards.Tests
                 new Card(CardRanks._6, Suits.S),
                 new Card(CardRanks._2, Suits.C)
             };
-            PokerHand hand;
+            Hand hand;
             Card highestCard;
 
             // Act
-            hand = new PokerHand(cards);
+            hand = new Hand(cards);
             highestCard = hand.HighestOverallCard;
 
             // Assert
@@ -123,7 +123,7 @@ namespace Poker.Cards.Tests
         public void Rank_Single_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._10, Suits.H),
@@ -143,7 +143,7 @@ namespace Poker.Cards.Tests
         public void Rank_Pair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._10, Suits.H),
@@ -163,7 +163,7 @@ namespace Poker.Cards.Tests
         public void Rank_TwoPair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._10, Suits.H),
@@ -183,7 +183,7 @@ namespace Poker.Cards.Tests
         public void Rank_ThreeOfAKind_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._10, Suits.H),
@@ -203,7 +203,7 @@ namespace Poker.Cards.Tests
         public void Rank_Straight_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks._7, Suits.C),
                 new Card(CardRanks._6, Suits.D),
                 new Card(CardRanks._4, Suits.H),
@@ -223,7 +223,7 @@ namespace Poker.Cards.Tests
         public void Rank_Flush_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.C),
                 new Card(CardRanks._10, Suits.C),
@@ -243,7 +243,7 @@ namespace Poker.Cards.Tests
         public void Rank_FullHouseLowPair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -263,7 +263,7 @@ namespace Poker.Cards.Tests
         public void Rank_FullHouseHighPair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -283,7 +283,7 @@ namespace Poker.Cards.Tests
         public void Rank_FourOfAKind_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks.Q, Suits.H),
@@ -303,7 +303,7 @@ namespace Poker.Cards.Tests
         public void Rank_StraightFlush_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks._7, Suits.D),
                 new Card(CardRanks._6, Suits.D),
                 new Card(CardRanks._4, Suits.D),
@@ -323,7 +323,7 @@ namespace Poker.Cards.Tests
         public void Rank_RoyalFlush_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.D),
                 new Card(CardRanks.A, Suits.D),
                 new Card(CardRanks._10, Suits.D),
@@ -344,7 +344,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_Single_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._10, Suits.H),
@@ -369,7 +369,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_Pair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._10, Suits.H),
@@ -396,7 +396,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_TwoPair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks.K, Suits.H),
@@ -423,7 +423,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_ThreeOfAKind_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks.K, Suits.D),
                 new Card(CardRanks._10, Suits.H),
@@ -450,7 +450,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_Straight_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks._7, Suits.C),
                 new Card(CardRanks._6, Suits.D),
                 new Card(CardRanks._4, Suits.H),
@@ -477,7 +477,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_Flush_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks.A, Suits.C),
                 new Card(CardRanks._10, Suits.C),
@@ -504,7 +504,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_FullHouseLowPair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -531,7 +531,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_FullHouseHighPair_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -558,7 +558,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_FourOfAKind_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks.A, Suits.D),
                 new Card(CardRanks.Q, Suits.H),
@@ -585,7 +585,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_StraightFlush_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks._7, Suits.D),
                 new Card(CardRanks._6, Suits.D),
                 new Card(CardRanks._4, Suits.D),
@@ -612,7 +612,7 @@ namespace Poker.Cards.Tests
         public void HighestRankCard_RoyalFlush_IsCorrect()
         {
             // Arrange variables
-            PokerHand hand = new PokerHand(
+            Hand hand = new Hand(
                 new Card(CardRanks.Q, Suits.D),
                 new Card(CardRanks.A, Suits.D),
                 new Card(CardRanks._10, Suits.D),
@@ -640,14 +640,14 @@ namespace Poker.Cards.Tests
         public void CompareScores_DifferentHandRanks_FavorsBetterHand()
         {
             // Arrange variables
-            PokerHand hand1 = new PokerHand(
+            Hand hand1 = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._10, Suits.H),
                 new Card(CardRanks.Q, Suits.S),
                 new Card(CardRanks._2, Suits.C)
                 );
-            PokerHand hand2 = new PokerHand(
+            Hand hand2 = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -657,8 +657,8 @@ namespace Poker.Cards.Tests
             int cmp1, cmp2;
 
             // Act
-            cmp1 = hand1.CompareHands(hand2);
-            cmp2 = hand2.CompareHands(hand1);
+            cmp1 = hand1.CompareTo(hand2);
+            cmp2 = hand2.CompareTo(hand1);
 
             // Assert
             Assert.IsTrue(cmp1 < 0);
@@ -669,7 +669,7 @@ namespace Poker.Cards.Tests
         public void CompareScores_SameHandRanks_FavorsHighestRankedCard()
         {
             // Arrange variables
-            PokerHand hand1 = new PokerHand(
+            Hand hand1 = new Hand(
                 new Card(CardRanks.J, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -677,7 +677,7 @@ namespace Poker.Cards.Tests
                 new Card(CardRanks.A, Suits.D)
                 
                 );
-            PokerHand hand2 = new PokerHand(
+            Hand hand2 = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._4, Suits.H),
@@ -687,8 +687,38 @@ namespace Poker.Cards.Tests
             int cmp1, cmp2;
 
             // Act
-            cmp1 = hand1.CompareHands(hand2);
-            cmp2 = hand2.CompareHands(hand1);
+            cmp1 = hand1.CompareTo(hand2);
+            cmp2 = hand2.CompareTo(hand1);
+
+            // Assert
+            Assert.IsTrue(cmp1 < 0);
+            Assert.IsTrue(cmp2 > 0);
+        }
+
+        [TestMethod()]
+        public void CompareScores_BothHandsArePairs_FavorsHighestRankedCard()
+        {
+            // Arrange variables
+            Hand hand1 = new Hand(
+                new Card(CardRanks.J, Suits.C),
+                new Card(CardRanks._2, Suits.D),
+                new Card(CardRanks._3, Suits.H),
+                new Card(CardRanks._3, Suits.S),
+                new Card(CardRanks.A, Suits.D)
+
+                );
+            Hand hand2 = new Hand(
+                new Card(CardRanks._8, Suits.C),
+                new Card(CardRanks._2, Suits.D),
+                new Card(CardRanks._4, Suits.H),
+                new Card(CardRanks._8, Suits.S),
+                new Card(CardRanks._3, Suits.C)
+                );
+            int cmp1, cmp2;
+
+            // Act
+            cmp1 = hand1.CompareTo(hand2);
+            cmp2 = hand2.CompareTo(hand1);
 
             // Assert
             Assert.IsTrue(cmp1 < 0);
@@ -699,7 +729,7 @@ namespace Poker.Cards.Tests
         public void CompareScores_SameHandRanksAndRankedCards_FavorsHighestOverallCards()
         {
             // Arrange variables
-            PokerHand hand1 = new PokerHand(
+            Hand hand1 = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._2, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -707,14 +737,14 @@ namespace Poker.Cards.Tests
                 new Card(CardRanks.A, Suits.D)
 
                 );
-            PokerHand hand2 = new PokerHand(
+            Hand hand2 = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._3, Suits.D),
                 new Card(CardRanks.A, Suits.H),
                 new Card(CardRanks.Q, Suits.S),
                 new Card(CardRanks._3, Suits.C)
                 );
-            PokerHand hand3 = new PokerHand(
+            Hand hand3 = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._5, Suits.D),
                 new Card(CardRanks._2, Suits.H),
@@ -722,7 +752,7 @@ namespace Poker.Cards.Tests
                 new Card(CardRanks._6, Suits.D)
 
                 );
-            PokerHand hand4 = new PokerHand(
+            Hand hand4 = new Hand(
                 new Card(CardRanks.Q, Suits.C),
                 new Card(CardRanks._3, Suits.D),
                 new Card(CardRanks.A, Suits.H),
@@ -732,10 +762,10 @@ namespace Poker.Cards.Tests
             int cmp1, cmp2, cmp3, cmp4;
 
             // Act
-            cmp1 = hand1.CompareHands(hand2);
-            cmp2 = hand2.CompareHands(hand1);
-            cmp3 = hand3.CompareHands(hand4);
-            cmp4 = hand4.CompareHands(hand3);
+            cmp1 = hand1.CompareTo(hand2);
+            cmp2 = hand2.CompareTo(hand1);
+            cmp3 = hand3.CompareTo(hand4);
+            cmp4 = hand4.CompareTo(hand3);
 
             // Assert
             Assert.IsTrue(cmp1 < 0);

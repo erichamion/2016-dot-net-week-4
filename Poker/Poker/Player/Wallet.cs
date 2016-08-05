@@ -8,14 +8,14 @@ namespace Poker.Player
 {
     public class Wallet
     {
-        public double Balance { get; private set; }
+        public int Balance { get; private set; }
 
-        public Wallet(double initialBalance)
+        public Wallet(int initialBalance)
         {
             Balance = initialBalance;
         }
 
-        public void AddBalance(double amount)
+        public void AddBalance(int amount)
         {
             if (amount < 0)
             {
@@ -24,7 +24,7 @@ namespace Poker.Player
             Balance += amount;
         }
 
-        public void Pay(double amount)
+        public void Pay(int amount)
         {
             if (amount < 0)
             {
@@ -39,7 +39,7 @@ namespace Poker.Player
             Balance -= amount;
         }
 
-        public bool CanPay(double amount)
+        public bool CanPay(int amount)
         {
             return Balance >= amount;
         }

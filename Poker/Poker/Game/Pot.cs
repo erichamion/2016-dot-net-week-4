@@ -8,14 +8,14 @@ namespace Poker.Game
 {
     public class Pot
     {
-        public double Award { get; private set; }
+        public int Award { get; private set; }
 
         public Pot()
         {
             Award = 0;
         }
 
-        public void Add(double amount)
+        public void Add(int amount)
         {
             if (amount < 0)
             {
@@ -24,9 +24,9 @@ namespace Poker.Game
             Award += amount;
         }
 
-        public double PayOut()
+        public int PayOut()
         {
-            double result = Award;
+            int result = Award;
             Award = 0;
             return result;
         }

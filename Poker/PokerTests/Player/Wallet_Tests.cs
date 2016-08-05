@@ -16,29 +16,29 @@ namespace Poker.Player.Tests
         {
             // Arrange variables
             Wallet wallet;
-            double expectedBalance = 27.05;
+            int expectedBalance = 27;
 
             // Act
             wallet = new Wallet(expectedBalance);
 
             // Assert
-            Assert.AreEqual(expectedBalance, wallet.Balance, 0.00001);
+            Assert.AreEqual(expectedBalance, wallet.Balance);
         }
 
         [TestMethod()]
         public void AddBalance_WithValidParameters_AddsBalance()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            double addAmount = 25.73;
-            double expectedBalance = initialBalance + addAmount;
+            int initialBalance = 37;
+            int addAmount = 25;
+            int expectedBalance = initialBalance + addAmount;
             Wallet wallet = new Wallet(initialBalance);
 
             // Act
             wallet.AddBalance(addAmount);
 
             // Assert
-            Assert.AreEqual(expectedBalance, wallet.Balance, 0.00001);
+            Assert.AreEqual(expectedBalance, wallet.Balance);
         }
 
         [TestMethod()]
@@ -46,8 +46,8 @@ namespace Poker.Player.Tests
         public void AddBalance_NegativeAmount_ThrowsArgumentOutOfRangeException()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            double addAmount = -25.73;
+            int initialBalance = 37;
+            int addAmount = -25;
             Wallet wallet = new Wallet(initialBalance);
 
             // Act
@@ -60,16 +60,16 @@ namespace Poker.Player.Tests
         public void Pay_WithValidParameters_SubtractsBalance()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            double subtractAmount = 25.73;
-            double expectedBalance = initialBalance - subtractAmount;
+            int initialBalance = 37;
+            int subtractAmount = 25;
+            int expectedBalance = initialBalance - subtractAmount;
             Wallet wallet = new Wallet(initialBalance);
 
             // Act
             wallet.Pay(subtractAmount);
 
             // Assert
-            Assert.AreEqual(expectedBalance, wallet.Balance, 0.00001);
+            Assert.AreEqual(expectedBalance, wallet.Balance);
         }
 
         [TestMethod()]
@@ -77,8 +77,8 @@ namespace Poker.Player.Tests
         public void Pay_NegativeAmount_ThrowsArgumentOutOfRangeException()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            double subtractAmount = -25.73;
+            int initialBalance = 37;
+            int subtractAmount = -25;
             Wallet wallet = new Wallet(initialBalance);
 
             // Act
@@ -92,8 +92,8 @@ namespace Poker.Player.Tests
         public void Pay_GreaterThanBalance_ThrowsArgumentException()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            double subtractAmount = 55.73;
+            int initialBalance = 37;
+            int subtractAmount = 55;
             Wallet wallet = new Wallet(initialBalance);
 
             // Act
@@ -106,8 +106,8 @@ namespace Poker.Player.Tests
         public void CanPay_LessThanBalance_IsTrue()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            double payAmount = 37.04;
+            int initialBalance = 37;
+            int payAmount = 37;
             Wallet wallet = new Wallet(initialBalance);
             bool canPay;
 
@@ -122,8 +122,8 @@ namespace Poker.Player.Tests
         public void CanPay_GreaterThanBalance_IsFalse()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            double payAmount = 37.06;
+            int initialBalance = 37;
+            int payAmount = 38;
             Wallet wallet = new Wallet(initialBalance);
             bool canPay;
 
@@ -138,8 +138,8 @@ namespace Poker.Player.Tests
         public void ToString_ValidCall_GivesCorrectString()
         {
             // Arrange variables
-            double initialBalance = 37.05;
-            String expectedString = "$37.05";
+            int initialBalance = 37;
+            String expectedString = "$37.00";
             Wallet wallet = new Wallet(initialBalance);
             String resultString;
 

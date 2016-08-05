@@ -10,11 +10,8 @@ namespace Poker
     {
         static void Main(string[] args)
         {
-            Cards.Card card = new Cards.Card(Cards.CardRanks._10, Cards.Suits.D);
-            Console.WriteLine(card);
-
-            List<Cards.Card> cards = new List<Cards.Card>();
-            Console.ReadKey();
+            UI.GameUI ui = new UI.GameUI();
+            ui.Start();
         }
     }
 }

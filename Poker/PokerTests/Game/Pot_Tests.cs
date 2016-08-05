@@ -16,13 +16,13 @@ namespace Poker.Game.Tests
         {
             // Arrange variables
             Pot pot;
-            double expectedAward = 0.0;
+            int expectedAward = 0;
 
             // Act
             pot = new Pot();
 
             // Assert
-            Assert.AreEqual(expectedAward, pot.Award, 0.00001);
+            Assert.AreEqual(expectedAward, pot.Award);
         }
 
         [TestMethod()]
@@ -30,16 +30,16 @@ namespace Poker.Game.Tests
         {
             // Arrange variables
             Pot pot = new Pot();
-            double firstAmount = 27.32;
-            double secondAmount = 35.74;
-            double expectedAward = firstAmount + secondAmount;
+            int firstAmount = 27;
+            int secondAmount = 35;
+            int expectedAward = firstAmount + secondAmount;
 
             // Act
             pot.Add(firstAmount);
             pot.Add(secondAmount);
 
             // Assert
-            Assert.AreEqual(expectedAward, pot.Award, 0.00001);
+            Assert.AreEqual(expectedAward, pot.Award);
         }
 
         [TestMethod()]
@@ -48,7 +48,7 @@ namespace Poker.Game.Tests
         {
             // Arrange variables
             Pot pot = new Pot();
-            double amount = -0.01;
+            int amount = -1;
 
             // Act
             pot.Add(amount);
@@ -61,15 +61,15 @@ namespace Poker.Game.Tests
         {
             // Arrange variables
             Pot pot = new Pot();
-            double expectedAward = 27.32;
-            double actualAward;
+            int expectedAward = 27;
+            int actualAward;
 
             // Act
             pot.Add(expectedAward);
             actualAward = pot.PayOut();
 
             // Assert
-            Assert.AreEqual(expectedAward, actualAward, 0.00001);
+            Assert.AreEqual(expectedAward, actualAward);
         }
 
         [TestMethod()]
@@ -77,8 +77,8 @@ namespace Poker.Game.Tests
         {
             // Arrange variables
             Pot pot = new Pot();
-            double addAmount = 27.32;
-            double newAward;
+            int addAmount = 27;
+            int newAward;
 
             // Act
             pot.Add(addAmount);
@@ -86,7 +86,7 @@ namespace Poker.Game.Tests
             newAward = pot.Award;
 
             // Assert
-            Assert.AreEqual(0, newAward, 0.00001);
+            Assert.AreEqual(0, newAward);
         }
 
         [TestMethod()]
@@ -94,8 +94,8 @@ namespace Poker.Game.Tests
         {
             // Arrange variables
             Pot pot = new Pot();
-            double addAmount = 27.32;
-            String expectedString = "$27.32";
+            int addAmount = 27;
+            String expectedString = "$27.00";
             String actualString;
 
             // Act

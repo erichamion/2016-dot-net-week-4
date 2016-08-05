@@ -8,14 +8,14 @@ namespace Poker.Player
 {
     public class Player
     {
-        public Cards.PokerHand Hand { get; private set; } = null;
+        public Cards.Hand Hand { get; private set; } = null;
         public bool IsActive { get; private set; } = true;
         public String Name { get; }
-        public double Cash { get { return _wallet.Balance; } }
+        public int Cash { get { return _wallet.Balance; } }
 
         private Wallet _wallet;
 
-        public Player(String name, double initialCash)
+        public Player(String name, int initialCash)
         {
             _wallet = new Wallet(initialCash);
             Name = name;
@@ -23,10 +23,10 @@ namespace Poker.Player
 
         public void CreateHand(params Cards.Card[] cards)
         {
-            Hand = new Cards.PokerHand(cards);
+            Hand = new Cards.Hand(cards);
         }
 
-        public bool TryBet(double amount)
+        public bool TryBet(int amount)
         {
             if (_wallet.CanPay(amount))
             {
@@ -40,11 +40,25 @@ namespace Poker.Player
             }
         }
 
-        public void CollectWinnings(double amount)
+        public void CollectWinnings(int amount)
         {
             _wallet.AddBalance(amount);
         }
 
+        public override string ToString()
+        {
+            return String.Format("{0}: {1:C}", Name, Cash);
+        }
+
+        public String ToString(bool showHand)
+        {
+            return showHand ? ToStringWithHand() : ToString();
+        }
+
+        private String ToStringWithHand()
+        {
+            return String.Format("{0} ({1:C}): {2}", Name, Cash, Hand);
+        }
 
     }
 }
