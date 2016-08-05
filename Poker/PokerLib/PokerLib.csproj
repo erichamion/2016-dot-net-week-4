@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{00A61E44-A9AA-42D6-A344-37C7DEAE41B7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{5EB7E737-93D5-444F-9F81-4F9A6D733BB9}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Poker</RootNamespace>
-    <AssemblyName>Poker</AssemblyName>
+    <RootNamespace>PokerLib</RootNamespace>
+    <AssemblyName>PokerLib</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -47,21 +44,17 @@
     <Compile Include="Cards\CardEqualityComparer.cs" />
     <Compile Include="Cards\CardRanks.cs" />
     <Compile Include="Cards\Deck.cs" />
-    <Compile Include="Cards\HandRanks.cs" />
     <Compile Include="Cards\Hand.cs" />
+    <Compile Include="Cards\HandRanks.cs" />
     <Compile Include="Cards\Suits.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\PlayerState.cs" />
     <Compile Include="Game\Pot.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Player\Wallet.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\GameUI.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

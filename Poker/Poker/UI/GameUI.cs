@@ -24,7 +24,6 @@ namespace Poker.UI
 
         public void CreateAndRunGame()
         {
-
             Game.Game game = GetGameParametersAndCreateGame();
 
             Game.GameState gameState;            
