@@ -14,15 +14,17 @@ namespace Poker.Game
     public class PlayerState
     {
         public String Name { get; }
-        public String Description { get; }
+        public String BalanceString { get; }
+        public String HandString { get; }
         public bool IsDealer { get; }
         public bool IsHuman { get; }
         public bool IsActive { get; }
 
-        public PlayerState(String name, String desc, bool isDealer, bool isHuman, bool isActive)
+        public PlayerState(String name, String balanceStr, String handStr, bool isDealer, bool isHuman, bool isActive)
         {
             Name = name;
-            Description = desc;
+            BalanceString = balanceStr;
+            HandString = handStr;
             IsDealer = isDealer;
             IsHuman = isHuman;
             IsActive = isActive;

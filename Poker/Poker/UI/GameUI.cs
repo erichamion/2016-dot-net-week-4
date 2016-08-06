@@ -184,7 +184,14 @@ namespace Poker.UI
                     winnerIndicator = String.Empty;
                 }
 
-                Console.WriteLine("{0}. {1} {2} {3}", i + 1, winnerIndicator, dealerIndicator, playerState.Description);
+                String outStr = String.Format("{0}. {1} {2} {3} ({4})",
+                    i + 1, winnerIndicator, dealerIndicator, playerState.Name, playerState.BalanceString);
+                if (!String.IsNullOrEmpty(playerState.HandString))
+                {
+                    outStr += String.Format(": {0}", playerState.HandString);
+                }
+
+                Console.WriteLine(outStr);
             }
 
             // Restore original console text color

@@ -225,20 +225,19 @@ namespace Poker.Game
                 Player.Player player = _players[i];
                 bool isHuman = (i == 0);
 
-                String desc;
+                String bal = String.Format("{0:C}", player.Cash);
+                String handStr;
                 if (playersHaveHands && player.IsActive)
                 {
                     bool showHand = (isHuman && showHumanHand) || showAllHands;
-                    desc = showHand ? 
-                        player.ToString(true) : 
-                        String.Format("{0} (Hand Hidden)", player.ToString(false));
+                    handStr = player.Hand.ToString(!showHand);
                 }
                 else
                 {
-                    desc = player.ToString(false);
+                    handStr = String.Empty;
                 }
 
-                result.Add(new PlayerState(player.Name, desc, i == _dealer, isHuman, player.IsActive));
+                result.Add(new PlayerState(player.Name, bal, handStr, i == _dealer, isHuman, player.IsActive));
             }
             return result;
         }
