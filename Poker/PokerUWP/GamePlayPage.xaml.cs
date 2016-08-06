@@ -144,8 +144,8 @@ namespace PokerUWP
 
             view.DealerTextBlock.Text = playerState.IsDealer ? "Dealer:" : String.Empty;
             view.NameTextBlock.Text = playerState.Name;
-            view.BalanceTextBlock.Text = "(WIP)";
-            view.HandTextBlock.Text = "(WIP)";
+            view.BalanceTextBlock.Text = playerState.BalanceString;
+            view.HandTextBlock.Text = playerState.HandString;
 
         }
 
