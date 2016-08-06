@@ -60,8 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PokerLib\PokerLib.csproj">
-      <Project>{5eb7e737-93d5-444f-9f81-4f9a6d733bb9}</Project>
+    <ProjectReference Include="..\PokerLib_Portable\PokerLib.csproj">
+      <Project>{d6a529ab-740c-4cba-b326-be1d15f1985d}</Project>
       <Name>PokerLib</Name>
     </ProjectReference>
   </ItemGroup>

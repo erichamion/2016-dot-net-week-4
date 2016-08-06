@@ -101,6 +101,7 @@
     <Compile Include="GameSetupPage.xaml.cs">
       <DependentUpon>GameSetupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlayerView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +133,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PokerLib_Portable\PokerLib.csproj">
+      <Project>{d6a529ab-740c-4cba-b326-be1d15f1985d}</Project>
+      <Name>PokerLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
