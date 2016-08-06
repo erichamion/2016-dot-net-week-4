@@ -54,7 +54,14 @@ namespace PokerUWP
 
         private void actionButton_Click(object sender, RoutedEventArgs e)
         {
-            DoGameRound();
+            if (_game.State != Poker.Game.GameState.OVER)
+            {
+                DoGameRound();
+            }
+            else
+            {
+                Frame.GoBack();
+            }
         }
 
         private void DoGameRound()
