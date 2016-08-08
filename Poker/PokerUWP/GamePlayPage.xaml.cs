@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.ViewManagement;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -99,15 +100,28 @@ namespace PokerUWP
             {
                 // (top)
                 _playerViews.Add(new PlayerView(playerPanel3, dealerText3, playerNameText3, playerBalanceText3, playerHandText3));
+
+                // There are three rows. Set min height accordingly.
+                mainGrid.MinHeight = 3 * playerPanel1.MinHeight;
+                
             }
             else
             {
                 // Hide the top panel if we don't use it
                 playerPanel3.Visibility = Visibility.Collapsed;
+
+                // There are only 2 occupied rows. Set the first row to 0 height, and set 
+                // overall min height accordingly.
+                var firstRowDef = mainGrid.RowDefinitions[0];
+                firstRowDef.Height = new GridLength(0);
+                firstRowDef.MinHeight = 0;
+                mainGrid.MinHeight = 2 * playerPanel1.MinHeight;
             }
 
             // Player 3 or 4 depending on how many players we have (right)
             _playerViews.Add(new PlayerView(playerPanel4, dealerText4, playerNameText4, playerBalanceText4, playerHandText4));
+
+            
         }
 
         private void UpdateControlPanel(Poker.Game.GameState gameState, String actionTaken)

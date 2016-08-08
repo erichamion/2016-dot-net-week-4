@@ -155,7 +155,12 @@ namespace Poker.Game
             else if (activePlayers.Count() == 1)
             {
                 // Exactly one remaining player. That player is the winner.
-                return DoGameOver(activePlayers.Single().Name, out actionString, out playerStates);
+                Player.Player winner = activePlayers.Single();
+
+                // Return the winner's money from the pot
+                winner.CollectWinnings(_pot.PayOut());
+
+                return DoGameOver(winner.Name, out actionString, out playerStates);
             }
             else
             {
